@@ -11,7 +11,28 @@
     <button onclick="checkEvenOrOdd()">Check</button>
     <div id="result"></div>
 
+    <h1>Calculate the Sum of Numbers from 1 to N</h1>
+    <input type="number" id="sumInput" placeholder="Enter a number">
+    <button onclick="calculateSum()">Calculate Sum</button>
+    <div id="sumResult"></div>
+
+    <h1>FizzBuzz</h1>
+    <button onclick="fizzBuzz()">Run FizzBuzz</button>
+    <div id="fizzBuzzResult"></div>
+
+    <h1>Find the Largest Number</h1>
+    <input type="text" id="arrayInput" placeholder="Enter numbers separated by commas">
+    <button onclick="findLargestNumber()">Find Largest</button>
+    <div id="largestNumberResult"></div>
+
+    <h1>Count Vowels in a String</h1>
+    <input type="text" id="vowelInput" placeholder="Enter a string">
+    <button onclick="countVowels()">Count Vowels</button>
+    <div id="vowelResult"></div>
+
     <script>
+
+        //function Even or Odd Checker
         function checkEvenOrOdd() {
             const number = document.getElementById("numberInput").value;
       
@@ -20,6 +41,74 @@
             } else {
                 document.getElementById("result").innerText = `${number} is Odd.`;
             }
+        }
+
+        // function for Sum of Numbers 1 to N
+        function calculateSum() {
+            const n = document.getElementById("sumInput").value;
+            if (n === "") {
+                document.getElementById("sumResult").innerText = "Please enter a number.";
+                return;
+            }
+            let sum = 0;
+            for (let i = 1; i <= n; i++) {
+                sum += i;
+            }
+
+            document.getElementById("sumResult").innerText = `The sum of numbers from 1 to ${n} is ${sum}.`;
+        }
+        
+        // Function for FizzBuzz
+        function fizzBuzz() {
+            let result = "";
+            for (let i = 1; i <= 100; i++) {
+                if (i % 3 === 0 && i % 5 === 0) {
+                    result += "FizzBuzz<br>";
+                } else if (i % 3 === 0) {
+                    result += "Fizz<br>";
+                } else if (i % 5 === 0) {
+                    result += "Buzz<br>";
+                } else {
+                    result += i + "<br>";
+                }
+            }
+            document.getElementById("fizzBuzzResult").innerHTML = result;
+        }
+
+        // Function to find the largest number in an array
+                function findLargestNumber() {
+            const input = document.getElementById("arrayInput").value;
+            if (input === "") {
+                document.getElementById("largestNumberResult").innerText = "Please enter numbers separated by commas.";
+                return;
+            }
+            const numbers = input.split(",").map(num => parseFloat(num.trim()));
+            if (numbers.some(isNaN)) {
+                document.getElementById("largestNumberResult").innerText = "Please enter valid numbers.";
+                return;
+            }
+            const largest = Math.max(...numbers);
+            document.getElementById("largestNumberResult").innerText = `The largest number is ${largest}.`;
+        }
+
+        // Function to count vowels in a string
+        function countVowels() {
+            const input = document.getElementById("vowelInput").value;
+            if (input === "") {
+                document.getElementById("vowelResult").innerText = "Please enter a string.";
+                return;
+            }
+
+            const vowels = "aeiouAEIOU";
+
+            let count = 0;
+            for (let char of input) {
+                if (vowels.includes(char)) {
+                    count++;
+                }
+            }
+
+            document.getElementById("vowelResult").innerText = `The number of vowels in the string is ${count}.`;
         }
     </script>
 </body>
