@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }    </style>
+    
+</head>
+<body>
+    <button onclick="sayHello()">Click here</button>
+    <button onclick="resetCount()">reset</button>
+    <div id = "message"></div>
+    <script>
+       let count = 0;
+       function sayHello() {
+           count++;
+           if (count === 1) {
+            alert("Hello! You clicked the button 1 time.");
+           } else {
+                alert(`Hello! You clicked the button ${count} times`); 
+                
+            }
+
+           }
+
+       function resetCount() {
+        count = 0;
+        document.getElementById("message").innerText = "Count has been reset.";
+       }
+       
+    </script>
+    
+</body>
+</html>
