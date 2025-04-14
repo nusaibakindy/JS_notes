@@ -1,0 +1,86 @@
+/* General body styling */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 20px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    color: #ff6f61;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px #ffe4e1;
+}
+
+/* Inputs */
+input[type="number"],
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #fff5f5;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #ff9a9e;
+    box-shadow: 0 0 10px #ff9a9e;
+}
+
+/* Buttons */
+button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #ff9a9e;
+    transform: scale(1.1);
+}
+
+/* Results divs */
+div {
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px dashed #ff6f61;
+    border-radius: 10px;
+    background-color: #fff5f5;
+    font-weight: bold;
+    color: #555;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific result styling */
+#result,
+#sumResult,
+#fizzBuzzResult,
+#largestNumberResult,
+#vowelResult {
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Add some spacing between sections */
+h1 + input,
+h1 + button {
+    margin-top: 20px;
+}
