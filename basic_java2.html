@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revers an array</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section>
+        <h1>Reverse an Array</h1>
+        <input type="text" id="arrayInput" placeholder="Enter array elements separated by commas">
+        <button onclick="reverseArray()">Reverse Array</button>
+        <button onclick="resetReverseArray()">Reset</button>
+        <div id="result"></div>
+    </section>
+
+    <section>
+        <h1>Filter Positive Numbers</h1>
+        <input type="text" id="numberArrayInput" placeholder="Enter numbers separated by commas">
+        <button onclick="filterPositiveNumbers()">Filter Positive Numbers</button>
+        <button onclick="resetFilterPositiveNumbers()">Reset</button>
+        <div id="positiveResult"></div>
+    </section>
+
+    <section>
+        <h1>Sum of Array Elements</h1>
+        <input type="text" id="sumArrayInput" placeholder="Enter numbers separated by commas">
+        <button onclick="sumArrayElements()">Calculate Sum</button>
+        <button onclick="resetSumArrayElements()">Reset</button>
+        <div id="sumResult"></div>
+    </section>
+
+    <section>
+        <h1>Count Word Occurrences</h1>
+        <input type="text" id="wordInput" placeholder="Enter a sentence">
+        <button onclick="countWordOccurrences()">Count Words</button>
+        <button onclick="resetCountWordOccurrences()">Reset</button>
+        <div id="wordResult"></div>
+    </section>
+
+    <script>
+        // Function to reverse an array
+        function reverseArray() {
+            const input = document.getElementById("arrayInput").value;
+            if (input === "") {
+                document.getElementById("result").innerText = "Please enter array elements.";
+                return;
+            }
+
+            const array = input.split(",").map(item => item.trim());
+            const reversedArray = array.reverse();
+
+            document.getElementById("result").innerText = `Reversed Array: ${reversedArray.join(", ")}`;
+        }
+
+        // Reset function for reverse array
+        function resetReverseArray() {
+            document.getElementById("arrayInput").value = "";
+            document.getElementById("result").innerText = "";
+        }
+
+        // Function to filter positive numbers
+        function filterPositiveNumbers() {
+            const input = document.getElementById("numberArrayInput").value;
+            if (input === "") {
+                document.getElementById("positiveResult").innerText = "Please enter numbers.";
+                return;
+            }
+
+            const numbers = input.split(",").map(num => parseFloat(num.trim()));
+            if (numbers.some(isNaN)) {
+                document.getElementById("positiveResult").innerText = "Please enter valid numbers.";
+                return;
+            }
+
+            const positiveNumbers = numbers.filter(num => num > 0);
+
+            document.getElementById("positiveResult").innerText = `Positive Numbers: ${positiveNumbers.join(", ")}`;
+        }
+
+        // Reset function for filter positive numbers
+        function resetFilterPositiveNumbers() {
+            document.getElementById("numberArrayInput").value = "";
+            document.getElementById("positiveResult").innerText = "";
+        }
+
+        // Function to calculate the sum of array elements
+        function sumArrayElements() {
+            const input = document.getElementById("sumArrayInput").value;
+            if (input === "") {
+                document.getElementById("sumResult").innerText = "Please enter numbers.";
+                return;
+            }
+
+            const numbers = input.split(",").map(num => parseFloat(num.trim()));
+            if (numbers.some(isNaN)) {
+                document.getElementById("sumResult").innerText = "Please enter valid numbers.";
+                return;
+            }
+
+            const sum = numbers.reduce((total, num) => total + num, 0);
+
+            document.getElementById("sumResult").innerText = `Sum of Array Elements: ${sum}`;
+        }
+
+        // Reset function for sum of array elements
+        function resetSumArrayElements() {
+            document.getElementById("sumArrayInput").value = "";
+            document.getElementById("sumResult").innerText = "";
+        }
+
+        // Function to count word occurrences
+        function countWordOccurrences() {
+            const input = document.getElementById("wordInput").value;
+            if (input === "") {
+                document.getElementById("wordResult").innerText = "Please enter a sentence.";
+                return;
+            }
+
+            const words = input.toLowerCase().split(/\s+/);
+            const wordCounts = {};
+
+            words.forEach(word => {
+                wordCounts[word] = (wordCounts[word] || 0) + 1;
+            });
+
+            document.getElementById("wordResult").innerText = `Word Occurrences: ${JSON.stringify(wordCounts)}`;
+        }
+
+        // Reset function for count word occurrences
+        function resetCountWordOccurrences() {
+            document.getElementById("wordInput").value = "";
+            document.getElementById("wordResult").innerText = "";
+        }
+    </script>
+</body>
+</html>
