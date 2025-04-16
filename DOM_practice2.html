@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Manipulating Practice - II</title>
+</head>
+<body>
+
+    <h1 id="heading">are you ready for summer?</h1>
+    <button onclick="changeText()">Change Text</button>
+
+    <h1>Change Image Alt Text</h1>
+    <img id="sampleImage" src="summer.jpg" alt="Original Alt Text">
+    <button onclick="changeImageAlt()">Change Alt Text</button>
+
+    <h1>do you want to see magic? Click the buttun below</h1>
+    <button id="textButton" onclick="changeButtonText()">Click Me</button>
+
+    <h1>Toggle Paragraph Font Size</h1>
+    <p id="toggleParagraph">i get bigger when you click the button!</p>
+    <button onclick="toggleFontSize()"> GO BIG!</button>
+
+    <h1>Counter</h1>
+    <p>Counter Value: <span id="counter">0</span></p>
+    <button onclick="incrementCounter()">Increase Counter</button>
+
+    <script>
+        // Function to change the page title
+        function changeText() {
+            const heading = document.getElementById("heading");
+            heading.textContent = "cuz i am !";
+        }
+
+        // Function to change the alt attribute of the image
+        function changeImageAlt() {
+            const image = document.getElementById("sampleImage");
+            image.alt = "New Alt Text";
+            console.log("Alt text changed to:", image.alt);
+        }
+
+        // Function to change the button text
+        function changeButtonText() {
+            const button = document.getElementById("textButton");
+            button.textContent = "poof!";
+        }
+
+        // Function to toggle the font size of a paragraph
+        function toggleFontSize() {
+            const paragraph = document.getElementById("toggleParagraph");
+            const currentFontSize = window.getComputedStyle(paragraph).fontSize;
+
+            // Toggle between 16px and 24px font size
+            paragraph.style.fontSize = currentFontSize === "16px" ? "24px" : "16px";
+        }
+
+        // Function to increment the counter
+        function incrementCounter() {
+            const counterElement = document.getElementById("counter");
+            let currentValue = parseInt(counterElement.textContent, 10);
+            counterElement.textContent = currentValue + 1; 
+        }
+    </script>
+</body>
+</html>
