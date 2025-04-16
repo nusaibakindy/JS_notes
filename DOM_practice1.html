@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Manipulating Practice - I</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="dom.css">
+</head>
+<body>
+    <h1 id="heading">Original Heading</h1>
+    <button onclick="changeText()">Change Text</button>
+    <button onclick="resetText()">Reset Text</button>
+
+    <div id="colorBox" style="width: 200px; height: 100px; border: 1px solid black; margin-top: 20px;">
+        This is a box.
+    </div>
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
+    <button onclick="resetBackgroundColor()">Reset Background Color</button>
+
+    <p id="toggleParagraph">This is a paragraph that can be shown or hidden.</p>
+    <button onclick="toggleVisibility()">Show/Hide Paragraph</button>
+    <button onclick="resetVisibility()">Reset Visibility</button>
+
+    <h2>Dynamic List</h2>
+    <ul id="dynamicList">
+        <li>you are beautiful 1</li>
+    </ul>
+    <button onclick="addListItem()">Add List Item</button>
+    <button onclick="resetList()">Reset List</button>
+
+    <h2 id="removableElement">This is a removable element.</h2>
+    <button onclick="removeElement()">Remove Element</button>
+    <button onclick="resetElement()">Reset Element</button>
+
+    <script>
+        // Function for changing text
+        function changeText() {
+            const heading = document.getElementById("heading");
+            heading.textContent = "Updated Heading";
+        }
+
+        // Reset function for text
+        function resetText() {
+            const heading = document.getElementById("heading");
+            heading.textContent = "Original Heading";
+        }
+
+        // Function for changing background color
+        function changeBackgroundColor() {
+            const colorBox = document.getElementById("colorBox");
+            colorBox.style.backgroundColor = "#FFB3BA";
+        }
+
+        // Reset function for background color
+        function resetBackgroundColor() {
+            const colorBox = document.getElementById("colorBox");
+            colorBox.style.backgroundColor = ""; // Reset to default
+        }
+
+        // Function for toggling visibility of a paragraph
+        function toggleVisibility() {
+            const paragraph = document.getElementById("toggleParagraph");
+            paragraph.style.display = paragraph.style.display === "none" ? "block" : "none";
+        }
+
+        // Reset function for visibility
+        function resetVisibility() {
+            const paragraph = document.getElementById("toggleParagraph");
+            paragraph.style.display = "block"; // Reset to visible
+        }
+
+        // Function to add a new list item
+        function addListItem() {
+            const list = document.getElementById("dynamicList");
+            const newItem = document.createElement("li");
+            newItem.textContent = `you are beautiful ${list.children.length + 1}`;
+            list.appendChild(newItem);
+        }
+
+        // Reset function for list
+        function resetList() {
+            const list = document.getElementById("dynamicList");
+            list.innerHTML = "<li>Item 1</li>"; // Reset to original state
+        }
+
+        // Function to remove a specific element
+        function removeElement() {
+            const element = document.getElementById("removableElement");
+            if (element) {
+                element.remove();
+            }
+        }
+
+        // Reset function for removable element
+        function resetElement() {
+            const container = document.body;
+            if (!document.getElementById("removableElement")) {
+                const newElement = document.createElement("h2");
+                newElement.id = "removableElement";
+                newElement.textContent = "This is a removable element.";
+                container.insertBefore(newElement, container.querySelector("script"));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback Practice</title>
+</head>
+<body>
+  <h1>Check the Console and Browser for Results</h1>
+
+  <h2>Greeting with Callback</h2>
+  <p id="greetingResult"></p>
+
+  <h2>Math Operation Callback</h2>
+  <p id="mathResult"></p>
+
+  <h2>Process Array Elements</h2>
+  <p id="processArrayResult"></p>
+
+  <h2>Simulate API Call</h2>
+  <p id="apiResult"></p>
+
+  <h2>Nested Callbacks</h2>
+  <p id="nestedResult"></p>
+
+  <h2>Callback Error Handling</h2>
+  <p id="errorHandlingResult"></p>
+
+  <script>
+    // Task 1: Greeting with Callback
+    function greet(name, callback) {
+      callback(name);
+    }
+
+    greet("Alice", function(name) {
+      const message = `Hello, ${name}!`;
+      console.log(message);
+      document.getElementById("greetingResult").innerText = message;
+    });
+
+    // Task 2: Math Operation Callback
+    function calculate(a, b, operation) {
+      const result = operation(a, b);
+      console.log(`The result is: ${result}`);
+      document.getElementById("mathResult").innerText = `The result is: ${result}`;
+    }
+
+    calculate(5, 3, (x, y) => x + y); // Addition
+    calculate(10, 4, (x, y) => x - y); // Subtraction
+    calculate(6, 7, (x, y) => x * y); // Multiplication
+    calculate(20, 5, (x, y) => x / y); // Division
+
+    // Task 3: Process Array Elements
+    function processArray(arr, callback) {
+      const result = arr.map(callback);
+      console.log("Processed Array:", result);
+      document.getElementById("processArrayResult").innerText = `Processed Array: ${result}`;
+    }
+
+    processArray([1, 2, 3], (n) => n * 2); // Doubling numbers
+    processArray(["hello", "world"], (str) => str.toUpperCase()); // Convert to uppercase
+
+    // Task 4: Simulate API Call (Async)
+    function getData(callback) {
+      setTimeout(() => {
+        const mockData = { id: 1, name: "John Doe" };
+        console.log("Received:", mockData);
+        document.getElementById("apiResult").innerText = `Received: ${JSON.stringify(mockData)}`;
+        callback(mockData);
+      }, 2000);
+    }
+
+    getData((data) => console.log("Callback executed with data:", data));
+
+    // Task 5: Nested Callbacks
+    function login(username, callback) {
+      setTimeout(() => {
+        console.log(`Logged in as ${username}`);
+        callback(username);
+      }, 1000);
+    }
+
+    function fetchUser(username, callback) {
+      setTimeout(() => {
+        const user = { username, id: 123 };
+        console.log("Fetched user:", user);
+        callback(user);
+      }, 1000);
+    }
+
+    function fetchSettings(user, callback) {
+      setTimeout(() => {
+        const settings = { theme: "dark", notifications: true };
+        console.log("Fetched settings for user:", user.username, settings);
+        document.getElementById("nestedResult").innerText = `Settings: ${JSON.stringify(settings)}`;
+        callback(settings);
+      }, 1000);
+    }
+
+    login("Alice", (username) => {
+      fetchUser(username, (user) => {
+        fetchSettings(user, (settings) => {
+          console.log("All steps completed.");
+        });
+      });
+    });
+
+    // Task 6: Callback Error Handling
+    function divide(a, b, successCallback, errorCallback) {
+      if (b === 0) {
+        errorCallback("Division by zero is not allowed.");
+      } else {
+        const result = a / b;
+        successCallback(result);
+      }
+    }
+
+    divide(
+      10,
+      0,
+      (result) => {
+        console.log("Success:", result);
+        document.getElementById("errorHandlingResult").innerText = `Success: ${result}`;
+      },
+      (error) => {
+        console.error("Error:", error);
+        document.getElementById("errorHandlingResult").innerText = `Error: ${error}`;
+      }
+    );
+
+    divide(
+      10,
+      2,
+      (result) => {
+        console.log("Success:", result);
+        document.getElementById("errorHandlingResult").innerText = `Success: ${result}`;
+      },
+      (error) => {
+        console.error("Error:", error);
+        document.getElementById("errorHandlingResult").innerText = `Error: ${error}`;
+      }
+    );
+  </script>
+</body>
+</html>

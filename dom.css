@@ -1,0 +1,95 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf6e3; /* Light cream */
+    color: #333;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Heading styling */
+h1, h2 {
+    color: #ff7f50; /* Coral */
+    text-shadow: 2px 2px #ffa07a; /* Light salmon shadow */
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+    background-color: #ffcc00; /* Bright yellow */
+    color: white;
+    border: 2px solid #ffa500; /* Orange */
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ffa500; /* Orange on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Div styling */
+#colorBox {
+    background-color: #87ceeb; /* Sky blue */
+    border: 5px solid #ff7f50; /* Coral */
+    border-radius: 15px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 300px;
+    height: 150px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Paragraph styling */
+p {
+    font-size: 1.2em;
+    color: #2e8b57; /* Sea green */
+    margin: 20px;
+}
+
+/* Unordered list styling */
+ul {
+    list-style-type: circle;
+    padding: 0;
+    margin: 20px auto;
+    width: 200px;
+    text-align: left;
+}
+
+ul li {
+    background-color: #fffacd; /* Lemon chiffon */
+    border: 2px solid #ff7f50; /* Coral */
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Reset element styling */
+#removableElement {
+    color: #ff4500; /* Orange red */
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Add some animation */
+@keyframes summerVibes {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+h1:hover, h2:hover {
+    animation: summerVibes 0.5s infinite;
+}

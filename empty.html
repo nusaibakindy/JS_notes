@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Nusaiba</h1>
+    <div id="container">
+        <p id="txt">hello</p>
+    </div>
+    <h2>Change Text</h2>
+    <button onclick="changeText()"> clicked </button>
+    <button onclick="changeColor()">Change Color</button>
+    <button onclick="changefontsize()">Change font size</button>
+    <button onclick="updatepara()">update para</button>
+    <button onclick="deletepara()">delete</button>
+    <script>
+        function changeText() {
+            let val = document.getElementById("txt").innerText;
+
+
+            if (val === "hello") {
+                document.getElementById("txt").innerText = "hi";
+            } else if (val === "hi") {
+                document.getElementById("txt").innerText = "hello";
+            } 
+        }
+        function changeColor() {
+            let element = document.getElementById("txt");
+            element.style.color = element.style.color === "red" ? "blue" : "red";
+        }
+
+    function changefontsize() {
+            let element = document.getElementById("txt");
+            element.style.fontSize = element.style.fontSize === "20px" ? "30px" : "20px";
+        }
+
+    function updatepara() {
+        let newParagraph = document.createElement("p");
+        newParagraph.innerText = "This is a new paragraph added to the container.";
+        document.getElementById("container").appendChild(newParagraph);
+         
+        }
+        function deletepara() {
+    let paragraphs = document.querySelectorAll("#container p");
+    paragraphs.length > 0 && paragraphs[paragraphs.length - 1].remove();
+}
+    
+        
+    </script>
+    
+
+</body>
+</html>
