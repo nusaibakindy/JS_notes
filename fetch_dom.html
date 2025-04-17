@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Users, Posts, Add a Post, and Show Comments</title>
+</head>
+<body>
+    <h1>Fetch Users</h1>
+    <button id="loadUsersButton">Load Users</button>
+    <ul id="usersList"></ul>
+
+    <h1>Fetch Posts</h1>
+    <button id="loadPostsButton">Load Posts</button>
+    <ul id="postsList"></ul>
+
+    <h1>Add a Post</h1>
+    <form id="addPostForm">
+        <label for="postTitle">Title:</label><br>
+        <input type="text" id="postTitle" name="postTitle" required><br><br>
+        <label for="postBody">Body:</label><br>
+        <textarea id="postBody" name="postBody" rows="4" required></textarea><br><br>
+        <button type="submit">Submit Post</button>
+    </form>
+    <div id="postResult"></div>
+
+    <h1>Show Comments for a Post</h1>
+    <label for="postId">Post ID:</label>
+    <input type="number" id="postId" name="postId" min="1" required>
+    <button id="loadCommentsButton">Load Comments</button>
+    <ul id="commentsList"></ul>
+
+    <script src="fetch_dom.js"></script>
+</body>
+</html>

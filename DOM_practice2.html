@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript DOM Manipulating Practice - II</title>
+    <style>
+        /* Default input field styling */
+        #focusInput {
+            padding: 10px;
+            border: 2px solid gray;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        /* Focus effect */
+        #focusInput:focus {
+            border-color: blue;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,41 +39,73 @@
     <p>Counter Value: <span id="counter">0</span></p>
     <button onclick="incrementCounter()">Increase Counter</button>
 
+    <h1>Disable Button After Clicking</h1>
+    <button id="disableButton" onclick="disableThisButton()"> once you click me i will be disabled</button>
+
+    <h1>Input Field Focus & Blur Effects</h1>
+    <input id="focusInput" type="text" placeholder="Focus on me!">
+    <p id="focusMessage"></p>
+
     <script>
-        // Function to change the page title
+        // 1. Change Page Title on Button Click
         function changeText() {
             const heading = document.getElementById("heading");
             heading.textContent = "cuz i am !";
         }
 
-        // Function to change the alt attribute of the image
+        //2. Change Image Alt Text
         function changeImageAlt() {
             const image = document.getElementById("sampleImage");
             image.alt = "New Alt Text";
             console.log("Alt text changed to:", image.alt);
         }
 
-        // Function to change the button text
+        // 3. Change Button Text When Clicked
         function changeButtonText() {
             const button = document.getElementById("textButton");
             button.textContent = "poof!";
         }
 
-        // Function to toggle the font size of a paragraph
+        //4. Toggle Paragraph Font Size
         function toggleFontSize() {
             const paragraph = document.getElementById("toggleParagraph");
             const currentFontSize = window.getComputedStyle(paragraph).fontSize;
 
-            // Toggle between 16px and 24px font size
+            
             paragraph.style.fontSize = currentFontSize === "16px" ? "24px" : "16px";
         }
 
-        // Function to increment the counter
+        //// 5. Update a Counter on Button Click
         function incrementCounter() {
             const counterElement = document.getElementById("counter");
             let currentValue = parseInt(counterElement.textContent, 10);
             counterElement.textContent = currentValue + 1; 
         }
+
+        // 6. Disable a Button After Clicking
+        function disableThisButton() {
+            const button = document.getElementById("disableButton");
+            button.disabled = true; 
+            button.textContent = "i told you!";
+        }
+
+        // 7. Input Field Focus & Blur Effects
+        function handleFocus() {
+            const message = document.getElementById("focusMessage");
+            message.textContent = "Input field is focused!";
+            message.style.color = "blue";
+        }
+
+        function handleBlur() {
+            const message = document.getElementById("focusMessage");
+            message.textContent = "Input field lost focus!";
+            message.style.color = "red";
+        }
+
+        
+        const inputField = document.getElementById("focusInput");
+        inputField.addEventListener("focus", handleFocus);
+        inputField.addEventListener("blur", handleBlur);
     </script>
 </body>
 </html>
