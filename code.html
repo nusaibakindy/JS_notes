@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop Customer Registration</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- All-in-One CSS -->
+    <style>
+        :root {
+            --paper-bg: #fdf6e3; --deep-brown: #5d4037; --vintage-green: #2e7d32;
+            --muted-red: #c62828; --warm-gold: #ffc107; --white: #ffffff; --light-border: #e0d8c6;
+        }
+        body {
+            font-family: 'Nunito', sans-serif; background-color: var(--paper-bg); color: var(--deep-brown);
+            margin: 0; padding: 2rem; line-height: 1.6;
+        }
+        
+        .app-container { max-width: 1200px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 3rem; }
+        header h1 {
+            font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 700; color: var(--deep-brown);
+        }
+        header h1 .fa-address-book { margin-right: 15px; color: var(--vintage-green); }
+
+        .dashboard-layout { display: flex; gap: 2rem; align-items: flex-start; }
+        
+        .form-panel {
+            flex: 1; background: var(--white); padding: 2rem; border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(93, 64, 55, 0.1); border: 1px solid var(--light-border);
+            position: sticky; top: 2rem;
+        }
+        .form-panel h2 {
+            margin-top: 0; font-family: 'Playfair Display', serif; color: var(--deep-brown);
+            border-bottom: 1px solid var(--light-border); padding-bottom: 0.5rem;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 700; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 0.8rem 1rem; box-sizing: border-box; border: 1px solid var(--light-border);
+            border-radius: 4px; font-family: 'Nunito', sans-serif; font-size: 1rem; transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--vintage-green); box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+        }
+        .form-buttons button {
+            padding: 0.8rem 1.5rem; border: none; border-radius: 4px; font-weight: 700; cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; margin-right: 10px; font-size: 1rem;
+        }
+        .form-buttons button:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #save-btn { background-color: var(--vintage-green); color: var(--white); }
+        #clear-btn { background-color: #d1d1d1; color: var(--deep-brown); }
+
+        .customer-list-panel { flex: 2; }
+        .customer-list-panel h2 {
+            font-family: 'Playfair Display', serif; padding-bottom: 1rem; border-bottom: 2px solid var(--light-border);
+        }
+        #customer-cards-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
+        }
+        .customer-card {
+            background: var(--white); border-radius: 8px; padding: 1.5rem;
+            box-shadow: 0 6px 20px rgba(93, 64, 55, 0.1); border: 1px solid var(--light-border);
+            display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .customer-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(93, 64, 55, 0.15); }
+        .card-header h3 { margin: 0 0 1rem 0; font-size: 1.4rem; font-weight: 800; word-break: break-word; }
+        .card-info { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; color: #777; }
+        .card-info .fa-solid { color: var(--vintage-green); width: 20px; text-align: center; }
+        .card-actions {
+            margin-top: auto; padding-top: 1rem; border-top: 1px solid #f0f0f0; display: flex;
+            gap: 10px; justify-content: flex-end;
+        }
+        .card-actions button {
+            background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; width: 36px;
+            height: 36px; font-size: 1rem; color: white; transition: all 0.2s ease;
+        }
+        .card-actions button:hover { transform: scale(1.1); }
+        .edit-btn { background-color: var(--warm-gold); }
+        .delete-btn { background-color: var(--muted-red); }
+        .status-message {
+            grid-column: 1 / -1; text-align: center; padding: 3rem; background-color: #fffaf2;
+            border-radius: 8px; border: 2px dashed var(--light-border); font-weight: 700;
+        }
+        
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000;
+        }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: var(--white); padding: 2.5rem; border-radius: 8px;
+            max-width: 450px; text-align: center; position: relative;
+            transform: scale(0.9); transition: all 0.3s ease;
+        }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
+        .modal-content h3 { font-family: 'Playfair Display', serif; margin-top: 0; font-size: 1.8rem; }
+        .modal-content p { margin-bottom: 2rem; }
+        .modal-actions button { font-size: 1rem; padding: 0.7rem 1.5rem; }
+        #confirm-delete-btn { background-color: var(--muted-red); color: white; }
+        #cancel-delete-btn { background-color: #d1d1d1; color: var(--deep-brown); }
+        .modal-close-btn {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            font-size: 2rem; color: #aaa; cursor: pointer;
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-layout { flex-direction: column; }
+            .form-panel { position: static; width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1><i class="fa-solid fa-address-book"></i>Book Shop Customer Registration</h1>
+        </header>
+
+        <main class="dashboard-layout">
+            <div class="form-panel">
+                <form id="customer-form">
+                    <h2 id="form-title">Add / Edit Customer</h2>
+                    <input type="hidden" id="customer-id">
+                    <div class="form-group"><label for="name">Customer Name</label><input type="text" id="name" required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" required></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="text" id="phone"></div>
+                    <div class="form-group"><label for="address">Address</label><textarea id="address" rows="3"></textarea></div>
+                    <div class="form-buttons">
+                        <button type="submit" id="save-btn">Save Customer</button>
+                        <button type="button" id="clear-btn">Clear</button>
+                    </div>
+                </form>
+            </div>
+            <div class="customer-list-panel">
+                 <h2>Registered Customers</h2>
+                <div id="customer-cards-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="delete-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn">×</button>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to permanently remove <strong id="customer-name-to-delete"></strong> from the registry?</p>
+            <div class="modal-actions">
+                <button id="confirm-delete-btn">Yes, Delete</button>
+                <button id="cancel-delete-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const API_URL = 'http://192.168.100.9:1337/api';
+            
+            const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ5NzA1MzE4LCJleHAiOjE3NTIyOTczMTh9.YXR2RS9fG9Bfq_A1kkLBP5P9ULerAhGeUvA28QinPRg';
+
+            const customerCardsContainer = document.getElementById('customer-cards-container');
+            const customerForm = document.getElementById('customer-form');
+            const formTitle = document.getElementById('form-title');
+            const saveButton = document.getElementById('save-btn');
+            const customerIdInput = document.getElementById('customer-id');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const addressInput = document.getElementById('address');
+            const clearBtn = document.getElementById('clear-btn');
+            
+            const deleteModal = document.getElementById('delete-modal');
+            const customerNameToDelete = document.getElementById('customer-name-to-delete');
+            const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+            const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+            const modalCloseBtn = document.querySelector('.modal-close-btn');
+            
+            let customerIdToDelete = null;
+
+            const getAuthHeaders = () => {
+                return {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${AUTH_TOKEN}`
+                };
+            };
+
+            const renderStatusMessage = (message) => {
+                customerCardsContainer.innerHTML = `<div class="status-message">${message}</div>`;
+            };
+
+            const fetchCustomers = async () => {
+                renderStatusMessage('Loading customer registry... 📚');
+                try {
+                    const response = await fetch(`${API_URL}/customers`, { headers: getAuthHeaders() });
+                    if (!response.ok) throw new Error(`Could not fetch data. Status: ${response.status}`);
+                    
+                    // THIS IS THE ONLY CHANGE IN THIS FILE (Part 1)
+                    // The API response is an object with a 'data' key containing the array.
+                    const result = await response.json();
+                    const customers = result.data; 
+                    
+                    customerCardsContainer.innerHTML = '';
+                    if (!customers || customers.length === 0) {
+                        renderStatusMessage('The customer registry is empty. Add one to get started!');
+                        return;
+                    }
+
+                    customers.forEach(customer => {
+                        const card = document.createElement('div');
+                        card.className = 'customer-card';
+                        
+                        // We access properties directly from the customer object now, NO .attributes
+                        const addressString = [customer.Area, customer.City, customer.State].filter(Boolean).join(', ');
+
+                        card.innerHTML = `
+                            <div class="card-header"><h3>${customer.FullName}</h3></div>
+                            <div class="card-body">
+                                <p class="card-info"><i class="fa-solid fa-at"></i><span>${customer.Email}</span></p>
+                                <p class="card-info"><i class="fa-solid fa-phone"></i><span>${customer.PhoneNumber || 'Not provided'}</span></p>
+                                <p class="card-info"><i class="fa-solid fa-location-dot"></i><span>${addressString || 'Not provided'}</span></p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="edit-btn" data-id="${customer.id}" title="Edit Customer"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="delete-btn" data-id="${customer.id}" data-name="${customer.FullName}" title="Delete Customer"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        `;
+                        customerCardsContainer.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Error viewing customers:', error);
+                    renderStatusMessage('Oops! Could not load the customer registry. Check the token and API permissions.');
+                }
+            };
+
+            const handleFormSubmit = async (e) => {
+                e.preventDefault();
+                // THIS IS THE ONLY CHANGE IN THIS FILE (Part 2)
+                // The request body is wrapped in a 'data' object as required.
+                const customerData = { 
+                    "data": {
+                        "FullName": nameInput.value, 
+                        "Email": emailInput.value, 
+                        "PhoneNumber": phoneInput.value
+                    }
+                };
+                const id = customerIdInput.value;
+                const method = id ? 'PUT' : 'POST';
+                const url = id ? `${API_URL}/customers/${id}` : `${API_URL}/customers`;
+                try {
+                    const response = await fetch(url, { method, headers: getAuthHeaders(), body: JSON.stringify(customerData) });
+                    if (!response.ok) throw new Error('Failed to save customer');
+                    resetForm();
+                    fetchCustomers();
+                } catch (error) { console.error('Error saving customer:', error); alert('Could not save customer details.'); }
+            };
+            
+            const editCustomer = async (id) => {
+                try {
+                    const response = await fetch(`${API_URL}/customers/${id}`, { headers: getAuthHeaders() });
+                    if (!response.ok) throw new Error('Could not fetch details');
+                    
+                    // THIS IS THE ONLY CHANGE IN THIS FILE (Part 3)
+                    // The single customer response is also likely nested in 'data'.
+                    const result = await response.json();
+                    const customer = result.data; 
+                    
+                    formTitle.textContent = 'Edit Customer Details';
+                    saveButton.textContent = 'Update Customer';
+                    customerIdInput.value = customer.id;
+                    
+                    // Access properties directly from the customer object.
+                    nameInput.value = customer.FullName;
+                    emailInput.value = customer.Email;
+                    phoneInput.value = customer.PhoneNumber;
+                    addressInput.value = [customer.Area, customer.City, customer.State].filter(Boolean).join(', ');
+
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    nameInput.focus();
+                } catch (error) { console.error('Error preparing to edit:', error); }
+            };
+
+            const openDeleteModal = (id, name) => {
+                customerIdToDelete = id;
+                customerNameToDelete.textContent = name;
+                deleteModal.classList.add('visible');
+            };
+
+            const closeDeleteModal = () => {
+                customerIdToDelete = null;
+                deleteModal.classList.remove('visible');
+            };
+
+            const performDelete = async () => {
+                if (!customerIdToDelete) return;
+                try {
+                    await fetch(`${API_URL}/customers/${customerIdToDelete}`, { method: 'DELETE', headers: getAuthHeaders() });
+                    closeDeleteModal();
+                    fetchCustomers();
+                } catch (error) { console.error('Error deleting customer:', error); alert('Could not remove customer.'); }
+            };
+
+            const resetForm = () => {
+                customerForm.reset();
+                customerIdInput.value = '';
+                formTitle.textContent = 'Add / Edit Customer';
+                saveButton.textContent = 'Save Customer';
+            };
+
+            customerForm.addEventListener('submit', handleFormSubmit);
+            clearBtn.addEventListener('click', resetForm);
+            
+            confirmDeleteBtn.addEventListener('click', performDelete);
+            cancelDeleteBtn.addEventListener('click', closeDeleteModal);
+            modalCloseBtn.addEventListener('click', closeDeleteModal);
+            deleteModal.addEventListener('click', (e) => {
+                if (e.target === deleteModal) closeDeleteModal();
+            });
+
+            customerCardsContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('button');
+                if (!button) return;
+                const id = button.dataset.id;
+                if (button.classList.contains('edit-btn')) {
+                    editCustomer(id);
+                }
+                if (button.classList.contains('delete-btn')) {
+                    const name = button.dataset.name;
+                    openDeleteModal(id, name);
+                }
+            });
+
+            fetchCustomers();
+        });
+    </script>
+</body>
+</html>
